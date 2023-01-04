@@ -1,10 +1,11 @@
 from Hotelms import Hotelms
 
 menu_options = {
-    1: 'Option 1',
-    2: 'Option 2',
-    3: 'Option 3',
-    4: 'Exit',
+    1: '(User Data: )Option 1',
+    2: '(Select Room: )Option 2',
+    3: '(Select Restaurants: )Option 3',
+    4: '(Total Expenditure: )Option 4',
+    5: 'Exit',
 }
 
 user = Hotelms()
@@ -31,7 +32,7 @@ if __name__=='__main__':
             user.restarantBill()
         elif option == 4:
              print(f"Total Bill: {user.totalExpenditure()}")
-        elif option == 4:
+        elif option == 5:
             print('Thanks message before exiting')
             exit()
         else:

@@ -11,12 +11,17 @@ rooms = {
 
 
 class Hotelms:
-    user_name =''
-    user_address=''
-    checkindate = ''
-    checkoutdate = ''
-    dayspent = 0
+    def __init__(self):
+         self.user_name =''
+         self.user_address=''
+         self.checkindate = ''
+         self.checkoutdate = ''
+         self.dayspent = 0
+         self.totalRent = 0
+         self.totalMeal = 0
+    
     # A function to get user data name, address,checkout dates and checking in dates. The function also calculate the the days to be spent by the user
+
     def customerData(self):
         self.user_name = input('Please enter your name: ')
         self.user_address = input('Please enter your address: ')
@@ -64,7 +69,10 @@ class Hotelms:
             
             print(f"Room Number: {roomnumber}")
             print(f"Room Price: {roomprice*totaldayspent.days}")
-            return roomprice*totaldayspent.days
+            print("------------------------------------------\n")
+
+            self.totalRent = roomprice*totaldayspent.days
+            return self.totalRent
         except:
             print("Room Number must be a integer")
 
@@ -74,17 +82,19 @@ class Hotelms:
         for index in range(len(dishes)):
             for key,val in dishes[index].items():
                 print("{} : {}".format(key, val))
-            print("-------------------------------------------------------------------------------------------------------------------------\n")
+            print("-------------------------------------------\n")
         # choose meal id
         menuId = int(input("Select the meal id form the menu list above: "))
         # next(filter(lambda obj: obj.get('id') == menuId, dishes), None)
         try:
             choosenitem = [i for i in dishes if i['id'] == menuId][0]
             print("{} : {}".format("Food Item", "Price $"))
-            print("------------------------------------------")
-            print("{} : {}".format(choosenitem['title'], choosenitem['price']))
-            
-            return choosenitem['price']
+            print("------------------------------------------\n")
+            print("{} : $ {}".format(choosenitem['title'], choosenitem['price']))
+            print("------------------------------------------\n")
+
+            self.totalMeal = choosenitem['price']
+            return self.totalMeal
             # print(choosenitem['price'])
         except IndexError:
             print("Index  not found")
@@ -95,8 +105,9 @@ class Hotelms:
         # pass
     # def gameBill():
         # pass
-    def totalExpenditure(self):
-        return self.calculateRoomRent() + self.restarantBill()
+    # def totalExpenditure(self):
+        # print(f"Total Bill: {self.calculateRoomRent() + self.restarantBill()}")
+        # return self.calculateRoomRent() + self.restarantBill()
 
        
 
