@@ -30,6 +30,8 @@ if __name__=='__main__':
         elif option == 3:
             user.restarantBill()
         elif option == 4:
+             print(f"Total Bill: {user.totalExpenditure()}")
+        elif option == 4:
             print('Thanks message before exiting')
             exit()
         else:

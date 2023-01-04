@@ -64,7 +64,7 @@ class Hotelms:
             
             print(f"Room Number: {roomnumber}")
             print(f"Room Price: {roomprice*totaldayspent.days}")
-            # return roomprice*totaldayspent.days
+            return roomprice*totaldayspent.days
         except:
             print("Room Number must be a integer")
 
@@ -83,6 +83,8 @@ class Hotelms:
             print("{} : {}".format("Food Item", "Price $"))
             print("------------------------------------------")
             print("{} : {}".format(choosenitem['title'], choosenitem['price']))
+            
+            return choosenitem['price']
             # print(choosenitem['price'])
         except IndexError:
             print("Index  not found")
@@ -93,8 +95,8 @@ class Hotelms:
         # pass
     # def gameBill():
         # pass
-    # def totalExpenditure():
-        # pass
+    def totalExpenditure(self):
+        return self.calculateRoomRent() + self.restarantBill()
 
        
 
