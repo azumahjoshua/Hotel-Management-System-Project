@@ -1,12 +1,14 @@
-from datetime import date, datetime
+from datetime import date
 
-
+from dishes import dishes
+# 
 rooms = {
     "one":2000,
     "two":3000,
     "three":4000,
     "four":5000
 }
+
 
 class Hotelms:
     user_name =''
@@ -46,7 +48,7 @@ class Hotelms:
         roomnumber = int(input("Select room number:"))
         roomprice = 0
         totaldayspent = self.dayspent
-        # print(totaldayspent.days)
+        print(totaldayspent.days)
         try:
             if(roomnumber<=0 or roomnumber >=5):
                 print("Room number should be be greater than 0 or less than 5")
@@ -59,15 +61,34 @@ class Hotelms:
                 roomprice = rooms['three']
             elif(roomnumber == 4):
                 roomprice = rooms['four']
-            return roomprice*totaldayspent.days
+            
+            print(f"Room Number: {roomnumber}")
+            print(f"Room Price: {roomprice*totaldayspent.days}")
+            # return roomprice*totaldayspent.days
         except:
             print("Room Number must be a integer")
 
-
-    
         
-    # def restarantBill():
-        # pass
+    def restarantBill(self):
+        # print menu
+        for index in range(len(dishes)):
+            for key,val in dishes[index].items():
+                print("{} : {}".format(key, val))
+            print("-------------------------------------------------------------------------------------------------------------------------\n")
+        # choose meal id
+        menuId = int(input("Select the meal id form the menu list above: "))
+        # next(filter(lambda obj: obj.get('id') == menuId, dishes), None)
+        try:
+            choosenitem = [i for i in dishes if i['id'] == menuId][0]
+            print("{} : {}".format("Food Item", "Price $"))
+            print("------------------------------------------")
+            print("{} : {}".format(choosenitem['title'], choosenitem['price']))
+            # print(choosenitem['price'])
+        except IndexError:
+            print("Index  not found")
+        
+
+
     # def laundaryBill():
         # pass
     # def gameBill():
@@ -85,7 +106,19 @@ class Hotelms:
 # day = int(input('Enter a day: '))
 
 
-user1 = Hotelms()
-user1.customerData()
-
-user1.calculateRoomRent()
+# user1 = Hotelms()
+# user1.customerData()
+# user1.calculateRoomRent()
+# 
+# user1.restarantBill()
+# 
+# 
+# 
+# menu_options = {
+    # 1: 'Option 1',
+    # 2: 'Option 2',
+    # 3: 'Option 3',
+    # 4: 'Exit',
+# 
+    # 
+# }
