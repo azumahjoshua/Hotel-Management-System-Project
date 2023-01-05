@@ -8,6 +8,7 @@ menu_options = {
     5: 'Exit',
 }
 
+# create an object of  a user
 user = Hotelms()
 
 def print_menu():
@@ -29,7 +30,7 @@ if __name__=='__main__':
         elif option == 2:
             user.calculateRoomRent()
         elif option == 3:
-            user.restarantBill()
+            user.restaurantBill()
         elif option == 4:
              print(f"Total Bill: {user.totalExpenditure()}")
         elif option == 5:

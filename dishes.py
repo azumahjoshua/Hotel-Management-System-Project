@@ -10,7 +10,7 @@ dishes = [
   },
   {
     "description":
-      "Large mushroom caps are filled a savory cream cheese, bacon and panko breadcrumb stuffing, topped with cheddar cheese. ",
+      "Large mushroom caps are filled a savory cream cheese, chicken bacon and panko breadcrumb stuffing, topped with cheddar cheese. ",
     "imageURL":
       "https://chocolatechocolateandmore.com/wp-content/uploads/2014/03/Crab-Stuffed-Mushrooms-from-ChocolateChocolateandmore-71a.jpg",
     "title": "Panko Stuffed Mushrooms",

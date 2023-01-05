@@ -11,17 +11,12 @@ rooms = {
 
 
 class Hotelms:
-    def __init__(self):
-         self.user_name =''
-         self.user_address=''
-         self.checkindate = ''
-         self.checkoutdate = ''
-         self.dayspent = 0
-         self.totalRent = 0
-         self.totalMeal = 0
-    
-    # A function to get user data name, address,checkout dates and checking in dates. The function also calculate the the days to be spent by the user
-
+    user_name =''
+    user_address=''
+    checkindate = ''
+    checkoutdate = ''
+    dayspent = 0
+    # A function to get user data name, address,checkout dates and checking in dates. The function also calculate the days to be spent by the user
     def customerData(self):
         self.user_name = input('Please enter your name: ')
         self.user_address = input('Please enter your address: ')
@@ -35,7 +30,7 @@ class Hotelms:
         self.checkoutdate= date(checkoutyear, checkoutmonth, checkoutday)
         # checking out date should be greater than checking in date
         if(self.checkindate > self.checkoutdate):
-            print("Error inputing Date: Checking out  should be greater than checking in")
+            print("Error inputing Date: Checking out should be greater than checking in")
             checkinyear = int(input('Enter checkin year: '))
             checkinmonth = int(input('Enter checkin month: '))
             checkinday = int(input('Enter checkin day: '))
@@ -50,14 +45,14 @@ class Hotelms:
     
     # Calculate the rent to be paid 
     def calculateRoomRent(self):
-        roomnumber = int(input("Select room number:"))
+        roomnumber = int(input("Select room number between 1 and 4: "))
         roomprice = 0
         totaldayspent = self.dayspent
-        print(totaldayspent.days)
+        # print(totaldayspent.days)
         try:
             if(roomnumber<=0 or roomnumber >=5):
-                print("Room number should be be greater than 0 or less than 5")
-                exit
+                print("please choose between the numbers 1 to 4")
+                exit()  #to quit the program
             elif(roomnumber == 1):
                 roomprice = rooms['one']
             elif(roomnumber == 2):
@@ -68,17 +63,17 @@ class Hotelms:
                 roomprice = rooms['four']
             
             print(f"Room Number: {roomnumber}")
-            print(f"Room Price: {roomprice*totaldayspent.days}")
+            print(f"Room Price: {roomprice*totaldayspent}")
             print("------------------------------------------\n")
 
-            self.totalRent = roomprice*totaldayspent.days
-            return self.totalRent
+            return roomprice*totaldayspent
         except:
-            print("Room Number must be a integer")
+            print("Room Number must be an integer")
 
         
-    def restarantBill(self):
+    def restaurantBill(self):
         # print menu
+        print(len(dishes))
         for index in range(len(dishes)):
             for key,val in dishes[index].items():
                 print("{} : {}".format(key, val))
@@ -89,15 +84,13 @@ class Hotelms:
         try:
             choosenitem = [i for i in dishes if i['id'] == menuId][0]
             print("{} : {}".format("Food Item", "Price $"))
-            print("------------------------------------------\n")
-            print("{} : $ {}".format(choosenitem['title'], choosenitem['price']))
-            print("------------------------------------------\n")
-
-            self.totalMeal = choosenitem['price']
-            return self.totalMeal
+            print("------------------------------------------")
+            print("{} : {}".format(choosenitem['title'], choosenitem['price']))
+            
+            return choosenitem['price']
             # print(choosenitem['price'])
         except IndexError:
-            print("Index  not found")
+            print("Index not found")
         
 
 
@@ -105,9 +98,8 @@ class Hotelms:
         # pass
     # def gameBill():
         # pass
-    # def totalExpenditure(self):
-        # print(f"Total Bill: {self.calculateRoomRent() + self.restarantBill()}")
-        # return self.calculateRoomRent() + self.restarantBill()
+    def totalExpenditure(self):
+        return self.calculateRoomRent() + self.restaurantBill()
 
        
 
