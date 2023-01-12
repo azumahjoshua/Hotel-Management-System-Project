@@ -69,7 +69,7 @@ class Hotelms:
             print(f"Room Price: {room_price*totaldayspent}")
             print("------------------------------------------\n")
 
-            self.totalroomrent = room_price*totaldayspent
+            self.totalroomrent. room_price*totaldayspent
         except ValueError:
             print("Room Number must be an integer")
             return
