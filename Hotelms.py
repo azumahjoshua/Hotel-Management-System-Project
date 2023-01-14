@@ -1,52 +1,66 @@
+"""
+importing date from datetime module
+"""
 from datetime import date
-
+"""
+importing data from index.py
+"""
 from index import dishes,rooms,games,laundary
 
 class Hotelms:
     """
-    A class for managing a hotel guest's stay, including their name, 
-    check-in and check-out dates, and the total cost of their stay.
+    A class for managing user data in a hotel
     """
-    # initillise data
+
     def __init__(self):
          self.user_name =''
          self.user_address = ''
          self.checkindate = None
          self.checkoutdate = None
-         self.dayspent = 0
+         self.days_spent = 0
          self.total_bill = 0
          self.totalroomrent = 0
-         self.totalrestaurantbill = 0
-         self.totallaundarybill = 0
-         self.totalgamebill = 0
+         self.totalrestaurantbill = []
+         self.totallaundarybill = []
+         self.totalgamebill = []
 
-    # A function to get user data name, address,checkout dates and checking in dates. The function also calculate the days to be spent by the user
+
     def get_customer_data(self):
         """
-        Prompts the user for their name, address, and check-in and check-out dates, 
-        and calculates the number of days the guest will be staying at the hotel.
+        Prompts for user data and calculate days spent
         """
-
-        self.user_name = input('Please enter your name: ')
-        self.user_address = input('Please enter your address: ')
+        user_name = input('Please enter your name: ')
+        user_address = input('Please enter your address: ')
+        if not isinstance(user_name, str):
+            raise ValueError('Invalid user name')
+        else:
+            self.user_name = user_name
+            self.user_address = user_address
         try :
-            checkinyear = int(input('Enter checkin year: '))
-            checkinmonth = int(input('Enter checkin month: '))
-            checkinday = int(input('Enter checkin day: '))
-            self.checkindate= date(checkinyear, checkinmonth, checkinday)
-            checkoutyear = int(input('Enter checkout year: '))
-            checkoutmonth = int(input('Enter checkout month: '))
-            checkoutday = int(input('Enter checkout day: '))
-            self.checkoutdate= date(checkoutyear, checkoutmonth, checkoutday)
-        except ValueError as error:
-            print("Invalid date input:", error)
+            
+            while True:    
+                checkinyear = int(input('Enter checkin year: '))
+                checkinmonth = int(input('Enter checkin month: '))
+                checkinday = int(input('Enter checkin day: '))
+                self.checkindate= date(checkinyear, checkinmonth, checkinday)
+                checkoutyear = int(input('Enter checkout year: '))
+                checkoutmonth = int(input('Enter checkout month: '))
+                checkoutday = int(input('Enter checkout day: '))
+                self.checkoutdate= date(checkoutyear, checkoutmonth, checkoutday)
+                if self.checkindate >= self.checkoutdate:
+                    print("Error:Check-out date must be later than check-in date.")
+                    continue
+                elif self.checkindate == self.checkoutdate:
+                    self.days_spent = 1
+                break
+        except ValueError:
+            print("Invalid date input")
             return
 
 
-        if self.checkindate >= self.checkoutdate:
-            raise ValueError("Error: Check-out date must be later than check-in date.")
         
-        self.days_spent = (self.check_out_date - self.check_in_date).days
+        
+        self.days_spent = (self.checkoutdate - self.checkindate).days
         print(f"Total days spent: {self.days_spent}")
         
         
@@ -55,47 +69,55 @@ class Hotelms:
     # Calculate the rent to be paid 
     def calculate_room_rent(self):
         """
-        Prompts the user to select a room number, and calculates the cost of the room rental
-        based on the number of days the guest will be staying.
+        users room choice and rent calculation
         """
-        try:
-            roomnumber = int(input("Select room number between 1 and 4: "))
-            room_price = rooms['roomnumber']
-            if not room_price:
-                raise ValueError("Invalid room number. Please choose between 1 and 4.")
-            totaldayspent = self.dayspent
+        roomprice = 0
+        totaldayspent = self.days_spent
+        while True:
+            try:
+                roomnumber = int(input("Select room number between 1 and 4: "))
 
-            print(f"Room Number: {roomnumber}")
-            print(f"Room Price: {room_price*totaldayspent}")
-            print("------------------------------------------\n")
+                if (roomnumber <= 0 or roomnumber >= 5):
+                    print("please choose between the numbers 1 to 4")
+                    continue 
+                elif (roomnumber == 1):
+                    roomprice = rooms['one']
+                elif (roomnumber == 2):
+                    roomprice = rooms['two']
+                elif (roomnumber == 3):
+                    roomprice = rooms['three']
+                elif (roomnumber == 4):
+                    roomprice = rooms['four']
+                else:
+                    print("Room Number must be an integer")
+                    continue
 
-            self.totalroomrent. room_price*totaldayspent
-        except ValueError:
-            print("Room Number must be an integer")
-            return
+
+                print(f"Room Number: {roomnumber}")
+                print(f"Room Price: {roomprice * totaldayspent}")
+                print("------------------------------------------\n")
+
+                self.totalroomrent =  roomprice * totaldayspent
+                break
+                
+            except:
+                print("Room Number must be an integer")
+    
 
         
         # Calculate the restaurant bill
     def calculate_restaurant_bill(self):
-        """
-        Prompts the user to select a food id from the hotel restaurant menu, 
-        the user can aslo select multiple foods and the price is  stored in a list.
-        the function calculates the total bills in te restaurant
-        """
-        # print menu
-        # print(len(dishes))
         for index in range(len(dishes)):
             for key,val in dishes[index].items():
                 print("{} : {}".format(key, val))
             print("-------------------------------------------\n")
         # choose meal id
         menuId = int(input("Select the meal id form the menu list above: "))
-        # next(filter(lambda obj: obj.get('id') == menuId, dishes), None)
         try:
             choosenitem = [i for i in dishes if i['id'] == menuId][0]
             print("{} : {}".format("Food Item", "Price $"))
             print("------------------------------------------")
-            print("{} : {}".format(choosenitem['title'], choosenitem['price']))
+            print("{} : ${}".format(choosenitem['title'], choosenitem['price']))
             print("-------------------------------------------\n")
             self.totalrestaurantbill.append(choosenitem['price'])
             # print(choosenitem['price'])
@@ -106,8 +128,7 @@ class Hotelms:
     # Calculate laundary bill
     def calculate_laundary_bill(self):
         """
-        Prompts the user to select a lundary list, the user can aslo select multiple lundary list and the price is  stored in a list.
-        the function calculates the total bills
+        Prompts the user to select a laundry list, 
         """
 
         for index in range(len(laundary)):
@@ -154,8 +175,6 @@ class Hotelms:
         """
         self.total_bill = sum(self.totalrestaurantbill) + self.totalroomrent + sum(self.totalgamebill)
         + sum(self.totallaundarybill)
-        # Add up the results of all the bill calculation methods
-        # bills += self.total_bill
         print(f"Total Bill: {self.total_bill}")
         
 
@@ -191,23 +210,23 @@ if __name__=='__main__':
             print('Wrong input. Please enter a number ...')
         #Check what choice was entered and act accordingly
         if option == 1:
-           user.customerData()
+           user.get_customer_data()
         elif option == 2:
-            user.calculateRoomRent()
+            user.calculate_room_rent()
         elif option == 3:
-            user.restaurantBill()
+            user.calculate_restaurant_bill()
         elif option == 4:
-            user.gameBill()
+            user.calculate_game_bill()
         elif option == 5:
-            user.laundaryBill()
+            user.calculate_laundary_bill()
         elif option == 6:
              print("------------------------------------------\n")
              user.generate_bill()
              print("------------------------------------------\n")
         elif option == 7:
             print("------------------------------------------\n")
-            print('Thanks message visiting our hotel')
+            print('Thank you for visiting our hotel')
             print("------------------------------------------\n")
             exit()
         else:
-            print('Invalid option. Please enter a number between 1 and 4.')
+            print('Invalid option. Please enter a number between 1 and 7.')
