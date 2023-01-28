@@ -24,7 +24,7 @@ this function caluclate the total bills the user incurred in the hotel
 
 ## Screenshots
 
-![Menu Options](/screenshots/menuoptions.png
+![Menu Options](/screenshots/menuoptions.png)
 
 Email: joshuaazumah6801@gmail.com <br/>
 Linkedin: https://www.linkedin.com/in/azumahjoshua
