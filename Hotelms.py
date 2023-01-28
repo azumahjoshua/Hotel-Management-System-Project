@@ -175,7 +175,7 @@ class Hotelms:
         """
         self.total_bill = sum(self.totalrestaurantbill) + self.totalroomrent + sum(self.totalgamebill)
         + sum(self.totallaundarybill)
-        print(f"Total Bill: {self.total_bill}")
+        print(f"Total Bill: of {self.user_name} is  {self.total_bill}")
         
 
 
